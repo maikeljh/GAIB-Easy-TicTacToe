@@ -10,7 +10,8 @@ class TicTacToe(tk.Tk):
 
         # Set application configuration
         self.title("Tic Tac Toe")
-        self.geometry("400x400")
+        self.geometry("450x500")
+        self.configure(bg="#222222")
 
         # Get screen dimensions
         screen_width = self.winfo_screenwidth()
@@ -66,6 +67,7 @@ class TicTacToe(tk.Tk):
         # Set popup configuration
         popup.title("Choose Symbol")
         popup.geometry("300x100")
+        popup.configure(bg="#222222")
 
         # Calculate the position for the center of the popup window
         popup_width = popup.winfo_width()
@@ -98,19 +100,19 @@ class TicTacToe(tk.Tk):
             self.play_button.config(state="disabled")
 
         # Create buttons for popup
-        button_o = tk.Button(popup, text="O", command=lambda: choose("O"))
+        button_o = tk.Button(popup, text="O", command=lambda: choose("O"), bg="#333333", fg="#FFFFFF")
         button_o.pack(side=tk.LEFT, padx=10, pady=10, anchor="center", expand=True)
 
-        button_x = tk.Button(popup, text="X", command=lambda: choose("X"))
+        button_x = tk.Button(popup, text="X", command=lambda: choose("X"), bg="#333333", fg="#FFFFFF")
         button_x.pack(side=tk.LEFT, padx=10, pady=10, anchor="center", expand=True)
 
     def create_widgets(self):
         # Create widgets
-        label = tk.Label(self, text="Tic Tac Toe")
+        label = tk.Label(self, text="Tic Tac Toe\n\nby Michael Jonathan Halim | 13521124", bg="#222222", fg="#FFFFFF")
         label.grid(row=0, column=0, columnspan=3, pady=20)
 
         # Create button to play
-        self.play_button = tk.Button(self, text="Play", command=self.choose_symbol)
+        self.play_button = tk.Button(self, text="Play", command=self.choose_symbol, bg="#333333", fg="#FFFFFF")
         self.play_button.grid(row=1, column=0, columnspan=3, pady=10)
 
         # Configure grid to center the widgets
@@ -129,7 +131,7 @@ class TicTacToe(tk.Tk):
             button_row = []
             for col in range(3):
                 button = tk.Button(self, text="", width=10, height=5,
-                                   command=lambda r=row, c=col: self.button_click(r, c))
+                                   command=lambda r=row, c=col: self.button_click(r, c), bg="#333333", fg="#FFFFFF")
                 button.grid(row=row+2, column=col, padx=5, pady=5)
                 button_row.append(button)
             self.buttons.append(button_row)
