@@ -18,8 +18,8 @@ class TicTacToe(tk.Tk):
         screen_height = self.winfo_screenheight()
 
         # Calculate the position for the center of the screen
-        window_width = 400
-        window_height = 400
+        window_width = 450
+        window_height = 500
         x = (screen_width - window_width) // 2
         y = (screen_height - window_height) // 2
 
