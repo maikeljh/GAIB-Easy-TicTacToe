@@ -29,6 +29,8 @@ class TicTacToe(tk.Tk):
         self.board = [["" for _ in range(3)] for _ in range(3)]
         self.player = ""
         self.bot = ""
+        self.alpha = float("-inf")
+        self.beta = float("inf")
 
         # Create widgets
         self.create_widgets()
@@ -200,7 +202,7 @@ class TicTacToe(tk.Tk):
         # No empty box, game draws
         return True
 
-    def minimax(self, depth, bot_turn):
+    def minimax(self, depth, bot_turn, alpha, beta):
         # Minimax algorithm
 
         # Evaluate board
@@ -229,10 +231,17 @@ class TicTacToe(tk.Tk):
                         self.board[i][j] = self.bot
 
                         # Find best value
-                        best = max(best, self.minimax(depth + 1, not bot_turn))
+                        best = max(best, self.minimax(depth + 1, not bot_turn, alpha, beta))
 
                         # Redo bot's move
                         self.board[i][j] = ""
+
+                        # Find Best Alpha
+                        alpha = max(alpha, best)
+
+                        # Beta cutoff
+                        if alpha > beta:
+                            return best
 
             # Return best value
             return best
@@ -250,10 +259,17 @@ class TicTacToe(tk.Tk):
                         self.board[i][j] = self.player
 
                         # Find min value
-                        best = min(best, self.minimax(depth + 1, not bot_turn))
+                        best = min(best, self.minimax(depth + 1, not bot_turn, alpha, beta))
 
                         # Redo player's move
                         self.board[i][j] = ""
+
+                        # Find Best Beta
+                        beta = min(beta, best)
+
+                        # Alpha cutoff
+                        if alpha > beta:
+                            return best
             
             # Return best value
             return best
@@ -272,8 +288,12 @@ class TicTacToe(tk.Tk):
                     # Assign box to bot
                     self.board[i][j] = self.bot
 
+                    # Reset alpha and beta
+                    self.alpha = float("-inf")
+                    self.beta = float("inf")
+
                     # Calculate move value
-                    move_value = self.minimax(0, False)
+                    move_value = self.minimax(0, False, self.alpha, self.beta)
 
                     # Redo bot's move
                     self.board[i][j] = ""
@@ -307,6 +327,8 @@ class TicTacToe(tk.Tk):
         self.player = ""
         self.bot = ""
         self.winner = ""
+        self.alpha = float("-inf")
+        self.beta = float("inf")
         
         # Destroy board
         for button_row in self.buttons:
